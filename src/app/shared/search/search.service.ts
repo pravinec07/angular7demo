@@ -11,7 +11,7 @@ export class SearchService {
   constructor(private http: HttpClient) { }
 
   getAll() {
-    return this.http.get('assets/data/people.json');
+    return this.http.get('https://api.github.com/orgs/angular/repos');
   }
 
   search(q: string): Observable<any> {
@@ -26,6 +26,12 @@ export class SearchService {
           JSON.parse(localStorage['person' + item.id]) : item)
         .filter(item => JSON.stringify(item).toLowerCase().includes(q))
       ));
+    // return this.getAll().pipe(
+    //   map((data: any) => data
+    //     .map(item => !!localStorage['person' + item.id] ?
+    //       JSON.parse(localStorage['person' + item.id]) : item)
+    //     .filter(item => JSON.stringify(item).toLowerCase().includes(q))
+    //   ));
   }
 
   get(id: number) {
